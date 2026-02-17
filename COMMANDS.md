@@ -6,6 +6,7 @@ Backend contract for conversational operations in the Project Idea Lab.
 
 - Primary UX: conversational intent (plain language).
 - `/lab` command syntax remains optional and supported.
+- Milestone writes implicitly run commit + push synchronization.
 
 ## Conventions
 
@@ -72,8 +73,30 @@ Backend contract for conversational operations in the Project Idea Lab.
 ### `/lab audit`
 - Run `scripts/validate-governance.ps1`.
 
+### `/lab commit [message]`
+- Commit staged changes manually.
+- Message format preferred: `brainstorm: <milestone-type> <idea-id-or-context>`.
+
+### `/lab push`
+- Push current branch to `origin/<current-branch>`.
+- Requires clean working tree.
+
+### `/lab sync [message]`
+- Manual commit+push wrapper using `scripts/lab-sync.ps1`.
+- Keeps local commit if push fails.
+
 ## Minimum Required Artifacts per Finalized Idea
 
 - Idea record (`ideas/_*.md` + `IDEA_CATALOG.md`)
 - At least one related session (`sessions/*`)
 - Final export packet (`exports/*`)
+
+## Auto-Commit Message Strategy
+
+- Preferred: `brainstorm: <milestone-type> <idea-id-or-context>`
+- Examples:
+  - `brainstorm: capture idea-agentic-briefing-lab`
+  - `brainstorm: decide idea-agentic-briefing-lab`
+  - `brainstorm: export idea-agentic-briefing-lab`
+- Fallback:
+  - `brainstorm: milestone update`

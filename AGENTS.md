@@ -12,6 +12,14 @@ Keep brainstorming natural while recording key milestones for future sessions an
 - Persistence style: auto-journaling at milestones.
 - Do not force slash commands during normal chat.
 
+## Git Sync Behavior
+
+- Auto-commit on each milestone write.
+- Auto-push after each auto-commit.
+- Push target: current branch to `origin/<current-branch>`.
+- Push safety: push only if working tree is clean after commit.
+- If push fails, keep local commit and report failure details.
+
 ## Milestone Capture Rule
 
 Persist updates only when one of these occurs:
@@ -45,4 +53,10 @@ Run after major updates:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/validate-governance.ps1
+```
+
+Manual sync helper (optional):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/lab-sync.ps1 -Message "brainstorm: milestone update"
 ```

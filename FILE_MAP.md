@@ -25,6 +25,7 @@ Lean file registry for the Project Idea Lab.
 | `docs/adr/template.md` | Optional ADR template |
 | `docs/adr/ADR-0001-adopt-governance-structure-for-idea-lab.md` | Foundational ADR |
 | `scripts/validate-governance.ps1` | Lean integrity validator |
+| `scripts/lab-sync.ps1` | Manual commit+push helper with clean-tree push safety |
 | `.github/workflows/governance-audit.yml` | Warn-only CI audit |
 | `.github/PULL_REQUEST_TEMPLATE.md` | PR checklist |
 | `.gitignore` | Local/derived file exclusions |

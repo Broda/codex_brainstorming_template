@@ -47,3 +47,9 @@ powershell -ExecutionPolicy Bypass -File scripts/validate-governance.ps1
 ```
 
 This checks link integrity, idea-state consistency, export references, and core artifact presence.
+
+## Cross-Device Continuity
+
+- Milestone updates auto-commit by default.
+- Auto-commits auto-push to `origin/<current-branch>`.
+- If remote push fails, local commits stay intact for retry from any location.

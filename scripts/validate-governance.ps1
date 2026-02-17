@@ -35,6 +35,7 @@ $coreArtifacts = @(
     'docs/adr/template.md',
     'docs/adr/ADR-0001-adopt-governance-structure-for-idea-lab.md',
     'scripts/validate-governance.ps1',
+    'scripts/lab-sync.ps1',
     '.github/workflows/governance-audit.yml',
     '.github/PULL_REQUEST_TEMPLATE.md'
 )

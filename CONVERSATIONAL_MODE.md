@@ -6,6 +6,9 @@ Lightweight mode for chat-first brainstorming with milestone-based recording.
 
 - Auto-journaling: on
 - Write cadence: milestone-based
+- Auto-commit: on
+- Auto-push: on
+- Push policy: clean tree only
 - Slash commands: optional
 
 ## Milestones That Trigger Recording
@@ -32,3 +35,5 @@ Lightweight mode for chat-first brainstorming with milestone-based recording.
 
 - Freeform conversation is valid; no write occurs until milestones happen.
 - For small ideas, keep artifacts minimal: idea + session + export.
+- No extra push phrase is required; milestone commits are auto-pushed by default.
+- If push fails, local commits are preserved and surfaced for manual retry.
