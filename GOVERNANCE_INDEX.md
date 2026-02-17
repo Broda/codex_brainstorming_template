@@ -16,12 +16,13 @@ Central index for governance, policy, standards, and process documents.
 | `GLOSSARY.md` | Shared vocabulary for governance terms | Prevent interpretation drift |
 | `METRICS.md` | Throughput and quality KPI tracking | Monitor process outcomes |
 | `TEMPLATE_RELEASES.md` | Template versioning and migration policy | Communicate compatible changes |
+| `CONVERSATIONAL_MODE.md` | Intent-based interaction and persistence rules | Enable slash-command-free operation |
 
 ## Operational Docs
 
 | Document | Purpose |
 |---|---|
-| `COMMANDS.md` | Defines governance-aware `/lab` command behaviors and required file mutations |
+| `COMMANDS.md` | Defines governance-aware backend command behaviors and required file mutations |
 | `IDEA_LAB_CONTEXT.md` | Context and update rules for day-to-day operations |
 | `IDEA_CATALOG.md` | Canonical index of idea records and related governance artifacts |
 | `FILE_MAP.md` | Registry of managed files with purpose, owner, and last-modified timestamp |

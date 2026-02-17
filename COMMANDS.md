@@ -4,7 +4,8 @@ Governance-aware command contract for the Project Idea Lab.
 
 ## Command Conventions
 
-- Prefix: `/lab`
+- Prefix: `/lab` (optional user-facing syntax)
+- Conversational intent mode is primary UX (see `CONVERSATIONAL_MODE.md`)
 - Project codename format: kebab case (`idea-codename`)
 - Idea ID format: `idea-<kebab-case>`
 - Decision ID format: `decision-<nnn>`
@@ -21,7 +22,26 @@ Governance-aware command contract for the Project Idea Lab.
 - Preserve historical records; use status transitions and supersedence, not destructive edits.
 - For lifecycle moves, include transition block from `STANDARDS.md`.
 
-## Commands
+## Conversational Intents (Primary UX)
+
+Plain-language phrasing should trigger the same governed actions as `/lab` commands.
+
+| Conversational intent example | Equivalent backend command intent |
+|---|---|
+| "capture this idea" | `/lab capture <idea-id>` |
+| "make this active" | `/lab activate <idea-id>` |
+| "decision: ... because ..." | `/lab decide <decision-slug>` |
+| "risk: ..." | `/lab risk <idea-id>` |
+| "review this idea" | `/lab review <idea-id>` |
+| "finalize/export plan" | `/lab export <idea-id>` + `/lab finalize <idea-id>` |
+| "park this" | `/lab park <idea-id>` |
+| "kill this" | `/lab kill <idea-id>` |
+| "run audit" | `/lab audit` |
+
+Reference:
+- Conversational behavior, triggers, and persistence policy: `CONVERSATIONAL_MODE.md`
+
+## Commands (Backend Contract)
 
 ### `/lab capture <idea-id>`
 

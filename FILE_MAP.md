@@ -11,7 +11,8 @@ Owner legend:
 |---|---|---|---|
 | `README.md` | Repo overview and governance entrypoint | idea-lab-maintainer | 2026-02-17 |
 | `IDEA_LAB_CONTEXT.md` | Operating context and update rules | idea-lab-maintainer | 2026-02-17 |
-| `COMMANDS.md` | Governance-aware command definitions | idea-lab-maintainer | 2026-02-17 |
+| `COMMANDS.md` | Governance-aware backend command definitions | idea-lab-maintainer | 2026-02-17 |
+| `CONVERSATIONAL_MODE.md` | Plain-language intent mode and persistence rules | idea-lab-maintainer | 2026-02-17 |
 | `FILE_MAP.md` | Managed file index and metadata | idea-lab-maintainer | 2026-02-17 |
 | `GOVERNANCE_INDEX.md` | Index of governance and policy docs | idea-lab-maintainer | 2026-02-17 |
 | `DECISION_POLICY.md` | Decision levels, ADR rules, supersedence | idea-lab-maintainer | 2026-02-17 |

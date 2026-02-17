@@ -11,6 +11,14 @@ Governance-structured repository for brainstorming, evaluating, refining, and ex
 5. Export approved plans to `exports/` using `templates/project_plan_packet_template.md`.
 6. Finalize and run governance audit checks via `scripts/validate-governance.ps1`.
 
+## Conversational Workflow Mode
+
+Use this template with normal conversational brainstorming. Codex auto-persists milestones without requiring `/lab` command syntax.
+
+- Conversational mode spec: `CONVERSATIONAL_MODE.md`
+- Backend command contract (still supported): `COMMANDS.md`
+- Persistence style: auto-journaling, milestone-based
+
 ## Governance Approach
 
 Governance is explicit and file-based. Policies define quality, decision rigor, and review controls.
