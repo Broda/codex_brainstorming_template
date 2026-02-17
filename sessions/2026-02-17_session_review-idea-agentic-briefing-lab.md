@@ -25,7 +25,7 @@
 ## Quality Checklist Evidence
 
 - MVP clarity evidence: bounded scope documented in idea record
-- Decision/ADR evidence: `docs/adr/ADR-0001-adopt-governance-structure-for-idea-lab.md`, `docs/adr/ADR-0002-export-gate-adjustment.md`
+- Decision/ADR evidence: `docs/adr/ADR-0001-adopt-governance-structure-for-idea-lab.md`
 - Risk ownership evidence: session risk notes linked from catalog
 - Open questions ownership evidence: owner/due date assigned in condition table
 - Traceability evidence: idea, ADR, session, and export links present
@@ -34,3 +34,4 @@
 
 - Outcome: approve export
 - Next action: close remaining condition and proceed with final export packet.
+

@@ -1,68 +1,49 @@
 ﻿# Project Idea Lab
 
-Governance-structured repository for brainstorming, evaluating, refining, and exporting project ideas into a final `PROJECT_PLAN_PACKET` for handoff to a build repository.
+Lightweight, conversational template for brainstorming project ideas and turning them into a final `PROJECT_PLAN_PACKET` for build handoff.
+
+## How to Use This Naturally
+
+Use normal freeform chat. Codex records only milestone events:
+
+- new idea captured
+- state transition (inbox/active/parked/killed/exported)
+- major decision or risk
+- export/finalize
+
+No slash command syntax is required in normal use.
 
 ## Core Workflow
 
-1. Capture ideas in `ideas/_inbox.md` using `templates/idea_template.md`.
-2. Promote viable ideas to `ideas/_active.md` with a session log in `sessions/`.
-3. Record strategic decisions as ADRs in `docs/adr/` and link them from idea records.
-4. Track risks, milestones, and review outcomes until quality gates are met.
-5. Export approved plans to `exports/` using `templates/project_plan_packet_template.md`.
-6. Finalize and run governance audit checks via `scripts/validate-governance.ps1`.
+1. Brainstorm freely.
+2. Capture idea into `ideas/_inbox.md`.
+3. Move promising ideas to `ideas/_active.md` with a session file in `sessions/`.
+4. Record decisions/risks only when useful.
+5. Export a final packet in `exports/`.
+6. Finalize and run audit.
 
-## Conversational Workflow Mode
+## Core Docs
 
-Use this template with normal conversational brainstorming. Codex auto-persists milestones without requiring `/lab` command syntax.
-
-- Conversational mode spec: `CONVERSATIONAL_MODE.md`
-- Agent operating contract: `AGENTS.md`
-- Backend command contract (still supported): `COMMANDS.md`
-- Persistence style: auto-journaling, milestone-based
-
-## Governance Approach
-
-Governance is explicit and file-based. Policies define quality, decision rigor, and review controls.
-
-- Governance index: `GOVERNANCE_INDEX.md`
-- Decision policy: `DECISION_POLICY.md`
-- Documentation policy: `DOCS_POLICY.md`
-- Review workflow: `REVIEW_WORKFLOW.md`
-- Security policy: `SECURITY_POLICY.md`
-- Quality bar: `QUALITY_BAR.md`
-- Standards (IDs + transitions): `STANDARDS.md`
-- Working agreements: `WORKING_AGREEMENTS.md`
-- Glossary: `GLOSSARY.md`
-- Metrics dashboard: `METRICS.md`
-- Template releases policy: `TEMPLATE_RELEASES.md`
-- Command contract: `COMMANDS.md`
-- File registry: `FILE_MAP.md`
-
-## ADR System
-
-- ADR folder: `docs/adr/`
-- Canonical ADR template (single source): `docs/adr/template.md`
-- Initial repository decision: `docs/adr/ADR-0001-adopt-governance-structure-for-idea-lab.md`
-
-## Catalogs and Working Data
-
+- Agent contract: `AGENTS.md`
+- Conversational mode: `CONVERSATIONAL_MODE.md`
+- Backend command mapping: `COMMANDS.md`
+- Quickstart: `QUICKSTART.md`
+- File index: `FILE_MAP.md`
 - Idea catalog: `IDEA_CATALOG.md`
-- Idea state files: `ideas/_inbox.md`, `ideas/_active.md`, `ideas/_parked.md`, `ideas/_killed.md`
-- Onboarding quickstart: `QUICKSTART.md`
-- Bootstrap checklist: `BOOTSTRAP_CHECKLIST.md`
-- Worked examples: `examples/idea-example.md`, `examples/adr-example.md`, `examples/export-example.md`
 
-## Open-Source Contribution Surface
+## Optional Tools
 
-- Warn-only CI audit: `.github/workflows/governance-audit.yml`
-- Issue templates: `.github/ISSUE_TEMPLATE/`
-- PR template: `.github/PULL_REQUEST_TEMPLATE.md`
+- ADR template: `docs/adr/template.md`
+- Decision template: `templates/decision_template.md`
+- Risk template: `templates/risk_template.md`
+- Review gate template: `templates/review_gate_template.md`
 
-## Baseline Rules
+## Validation
 
-- Never delete historical records.
-- Always timestamp changes (`YYYY-MM-DD`).
-- Always update affected indexes when adding or changing artifacts.
-- Exports are immutable snapshots; revisions create a new export file.
-- Use `STANDARDS.md` transition blocks for lifecycle moves.
-- Run `/lab audit` (or `scripts/validate-governance.ps1`) after governance-impacting updates.
+Run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/validate-governance.ps1
+```
+
+This checks link integrity, idea-state consistency, export references, and core artifact presence.

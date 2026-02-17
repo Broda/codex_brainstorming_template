@@ -1,32 +1,23 @@
 ﻿# Commands
 
-Governance-aware command contract for the Project Idea Lab.
+Backend contract for conversational operations in the Project Idea Lab.
 
-## Command Conventions
+## Usage Style
 
-- Prefix: `/lab` (optional user-facing syntax)
-- Conversational intent mode is primary UX (see `CONVERSATIONAL_MODE.md`)
-- Project codename format: kebab case (`idea-codename`)
+- Primary UX: conversational intent (plain language).
+- `/lab` command syntax remains optional and supported.
+
+## Conventions
+
 - Idea ID format: `idea-<kebab-case>`
 - Decision ID format: `decision-<nnn>`
 - Risk ID format: `risk-<nnn>`
-- ADR file format: `ADR-XXXX-<kebab-case-title>.md`
+- ADR ID format: `ADR-XXXX`
 - Dates: `YYYY-MM-DD`
-- Source of truth for ADR template: `docs/adr/template.md`
 
-## Global Rules (Apply to Every Command)
+## Conversational Intent Mapping
 
-- Never delete existing content.
-- Always timestamp changes.
-- Always update affected indexes (`IDEA_CATALOG.md`, `FILE_MAP.md`, and `GOVERNANCE_INDEX.md` when governance artifacts change).
-- Preserve historical records; use status transitions and supersedence, not destructive edits.
-- For lifecycle moves, include transition block from `STANDARDS.md`.
-
-## Conversational Intents (Primary UX)
-
-Plain-language phrasing should trigger the same governed actions as `/lab` commands.
-
-| Conversational intent example | Equivalent backend command intent |
+| Conversational phrase | Backend intent |
 |---|---|
 | "capture this idea" | `/lab capture <idea-id>` |
 | "make this active" | `/lab activate <idea-id>` |
@@ -38,95 +29,51 @@ Plain-language phrasing should trigger the same governed actions as `/lab` comma
 | "kill this" | `/lab kill <idea-id>` |
 | "run audit" | `/lab audit` |
 
-Reference:
-- Conversational behavior, triggers, and persistence policy: `CONVERSATIONAL_MODE.md`
-
 ## Commands (Backend Contract)
 
 ### `/lab capture <idea-id>`
-
-Effect:
-- Appends new idea record to `ideas/_inbox.md` from `templates/idea_template.md`.
-- Adds row to `IDEA_CATALOG.md` with status `inbox`.
-- Updates `FILE_MAP.md` last-modified entries.
+- Add/update idea in `ideas/_inbox.md` using `templates/idea_template.md`.
+- Add/update row in `IDEA_CATALOG.md`.
+- Update `FILE_MAP.md` when file inventory changes.
 
 ### `/lab activate <idea-id>`
-
-Effect:
-- Moves idea state from inbox to active (non-destructive transition record required).
-- Creates or updates a session file in `sessions/`.
-- Updates catalog and file map.
+- Move/update idea in `ideas/_active.md`.
+- Create/update session file in `sessions/`.
+- Update `IDEA_CATALOG.md`.
 
 ### `/lab decide <decision-slug>`
-
-Effect:
-- Determines decision level using `DECISION_POLICY.md`.
-- For Level 3: must create `docs/adr/ADR-XXXX-<decision-slug>.md` from `docs/adr/template.md`.
-- For Level 1/2: may remain session-only using `templates/decision_template.md`, unless marked durable.
-- Updates `IDEA_CATALOG.md` decision references.
+- Record decision in session using `templates/decision_template.md`.
+- For major strategic changes, create ADR from `docs/adr/template.md`.
+- Update `IDEA_CATALOG.md` references.
 
 ### `/lab risk <idea-id>`
-
-Effect:
-- Records risk entry in current session using `templates/risk_template.md`.
-- Ensures mitigation, contingency, and owner fields are populated.
+- Record risk in session using `templates/risk_template.md`.
 
 ### `/lab review <idea-id>`
-
-Effect:
-- Runs checklist from `REVIEW_WORKFLOW.md` and `QUALITY_BAR.md`.
-- Records gate result (`pass`, `conditional-pass`, `fail`) in session file using `templates/review_gate_template.md`.
-- Updates catalog notes and operational fields.
+- Record review notes and optional gate using `templates/review_gate_template.md`.
+- Update `IDEA_CATALOG.md`.
 
 ### `/lab export <idea-id>`
-
-Effect:
-- Generates `exports/YYYY-MM-DD_PROJECT_PLAN_PACKET_<idea-id>.md` using `templates/project_plan_packet_template.md`.
-- Requires quality gate outcome from latest review.
-- Adds export path to `IDEA_CATALOG.md`.
+- Create `exports/YYYY-MM-DD_PROJECT_PLAN_PACKET_<idea-id>.md` using `templates/project_plan_packet_template.md`.
+- Update export link in `IDEA_CATALOG.md`.
 
 ### `/lab finalize <idea-id>`
-
-Effect:
-- Marks idea status as `exported`.
-- Preconditions: latest review gate must be `pass` or `conditional-pass` with owned conditions.
-- Confirms export immutability and records any follow-up ownership.
-- Updates all affected indexes.
+- Mark idea status `exported`.
+- Ensure export path is present in `IDEA_CATALOG.md`.
 
 ### `/lab park <idea-id>`
-
-Effect:
-- Transitions idea to `ideas/_parked.md` with re-entry criteria and next review date.
-- Updates catalog status and references.
+- Move/update idea in `ideas/_parked.md`.
+- Update `IDEA_CATALOG.md`.
 
 ### `/lab kill <idea-id>`
-
-Effect:
-- Transitions idea to `ideas/_killed.md` with evidence and anti-goals.
-- Updates catalog status and references.
-
-### `/lab supersede-adr <old-adr> <new-adr>`
-
-Effect:
-- Sets old ADR status to `Superseded` and adds `Superseded by` link.
-- Sets new ADR `Supersedes` link.
-- Updates decision references in `IDEA_CATALOG.md`.
+- Move/update idea in `ideas/_killed.md`.
+- Update `IDEA_CATALOG.md`.
 
 ### `/lab audit`
+- Run `scripts/validate-governance.ps1`.
 
-Effect:
-- Runs governance integrity checker: `scripts/validate-governance.ps1`.
-- Verifies ADR links, catalog/status mapping, export references, and required governance artifacts.
-- Flags stale or missing file-map coverage as warnings.
+## Minimum Required Artifacts per Finalized Idea
 
-## Artifact Update Matrix
-
-| Command | Required File Updates |
-|---|---|
-| capture | `ideas/_inbox.md`, `IDEA_CATALOG.md`, `FILE_MAP.md` |
-| activate | `ideas/_active.md`, `sessions/*`, `IDEA_CATALOG.md`, `FILE_MAP.md` |
-| decide | `docs/adr/*` or `sessions/*`, `IDEA_CATALOG.md`, `FILE_MAP.md` |
-| review | `sessions/*`, `IDEA_CATALOG.md`, `FILE_MAP.md` |
-| export | `exports/*`, `IDEA_CATALOG.md`, `FILE_MAP.md` |
-| finalize | state file updates, `IDEA_CATALOG.md`, `FILE_MAP.md` |
-| audit | `scripts/validate-governance.ps1` (read-only), optional remediation updates |
+- Idea record (`ideas/_*.md` + `IDEA_CATALOG.md`)
+- At least one related session (`sessions/*`)
+- Final export packet (`exports/*`)

@@ -3,17 +3,16 @@
 - What changed:
 - Why:
 
-## Governance Evidence
+## Evidence
 
-- Idea Catalog link (`IDEA_CATALOG.md`):
+- Idea catalog link (`IDEA_CATALOG.md`):
 - Session evidence (`sessions/...`):
-- ADR links (`docs/adr/...`) when applicable:
-- Review gate evidence (`templates/review_gate_template.md` structure):
+- Export link (`exports/...`) if applicable:
+- ADR link (`docs/adr/...`) if applicable:
 
 ## Checklist
 
-- [ ] Updated affected indexes (`IDEA_CATALOG.md`, `FILE_MAP.md`, `GOVERNANCE_INDEX.md` as needed)
 - [ ] Preserved non-destructive history
-- [ ] Applied transition block format from `STANDARDS.md` (if lifecycle changed)
+- [ ] Updated `IDEA_CATALOG.md` when idea state changed
 - [ ] Ran `scripts/validate-governance.ps1`
-- [ ] Updated docs/templates if public contract changed
+- [ ] Updated docs if conversational contract changed
