@@ -22,6 +22,7 @@ Central index for governance, policy, standards, and process documents.
 
 | Document | Purpose |
 |---|---|
+| `AGENTS.md` | Repo-local operating contract for agent behavior |
 | `COMMANDS.md` | Defines governance-aware backend command behaviors and required file mutations |
 | `IDEA_LAB_CONTEXT.md` | Context and update rules for day-to-day operations |
 | `IDEA_CATALOG.md` | Canonical index of idea records and related governance artifacts |

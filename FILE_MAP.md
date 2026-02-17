@@ -10,6 +10,7 @@ Owner legend:
 | Path | Purpose | Owner | Last Modified |
 |---|---|---|---|
 | `README.md` | Repo overview and governance entrypoint | idea-lab-maintainer | 2026-02-17 |
+| `AGENTS.md` | Repo-local agent operating contract | idea-lab-maintainer | 2026-02-17 |
 | `IDEA_LAB_CONTEXT.md` | Operating context and update rules | idea-lab-maintainer | 2026-02-17 |
 | `COMMANDS.md` | Governance-aware backend command definitions | idea-lab-maintainer | 2026-02-17 |
 | `CONVERSATIONAL_MODE.md` | Plain-language intent mode and persistence rules | idea-lab-maintainer | 2026-02-17 |

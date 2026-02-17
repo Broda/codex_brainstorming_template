@@ -16,6 +16,7 @@ Governance-structured repository for brainstorming, evaluating, refining, and ex
 Use this template with normal conversational brainstorming. Codex auto-persists milestones without requiring `/lab` command syntax.
 
 - Conversational mode spec: `CONVERSATIONAL_MODE.md`
+- Agent operating contract: `AGENTS.md`
 - Backend command contract (still supported): `COMMANDS.md`
 - Persistence style: auto-journaling, milestone-based
 
