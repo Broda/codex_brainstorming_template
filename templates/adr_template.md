@@ -1,31 +1,9 @@
-﻿# ADR Template (Governance)
+﻿# ADR Template Pointer
 
-- Status: Proposed
-- Date: YYYY-MM-DD
-- Deciders:
-- Related Ideas:
-- Supersedes:
-- Superseded by:
+Canonical ADR template location:
 
-## Context
+- `docs/adr/template.md`
 
-## Decision
+Use that file as the single source of truth for ADR creation.
 
-## Alternatives Considered
-
-1. 
-2. 
-
-## Consequences
-
-### Positive
-
-### Negative
-
-### Neutral
-
-## Compliance Updates
-
-- Commands updated:
-- Indexes updated:
-- Templates updated:
+Do not duplicate ADR schema changes in this pointer file.

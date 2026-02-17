@@ -8,6 +8,7 @@ Canonical index of idea records and governance traceability.
 - Status must match one of: `inbox`, `active`, `parked`, `killed`, `exported`.
 - Strategic decisions must include ADR references.
 - Exported ideas must include export file path.
+- Active ideas must track gate, next action owner, next action due, and last reviewed.
 
 ## State Sources
 
@@ -18,9 +19,9 @@ Canonical index of idea records and governance traceability.
 
 ## Registry
 
-| Idea ID | Title | Status | Owner | ADRs | Sessions | Export | Notes |
-|---|---|---|---|---|---|---|---|
-| _none yet_ | _none yet_ | inbox | unassigned | `docs/adr/ADR-0001-adopt-governance-structure-for-idea-lab.md` | _none_ | _n/a_ | Initialize entries as ideas are captured |
+| Idea ID | Title | Status | Owner | ADRs | Sessions | Export | Current Gate | Next Action Owner | Next Action Due | Last Reviewed | Notes |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| _none yet_ | _none yet_ | inbox | unassigned | `docs/adr/ADR-0001-adopt-governance-structure-for-idea-lab.md` | _none_ | _n/a_ | _n/a_ | _n/a_ | _n/a_ | _n/a_ | Initialize entries as ideas are captured |
 
 ## Governance References
 
@@ -28,3 +29,4 @@ Canonical index of idea records and governance traceability.
 - Decision policy: `DECISION_POLICY.md`
 - Review workflow: `REVIEW_WORKFLOW.md`
 - Quality bar: `QUALITY_BAR.md`
+- Standards: `STANDARDS.md`

@@ -37,6 +37,15 @@ Exports are consumed by build repositories. Missing clarity or unresolved risk c
 - `conditional-pass`: export allowed with explicitly tracked follow-ups
 - `fail`: return to active review
 
+## Gate Evidence Requirements
+
+Review outputs must follow `templates/review_gate_template.md` and include:
+
+- Gate result
+- Unmet criteria
+- Condition owners and due dates (when conditional-pass)
+- Links to quality checklist evidence
+
 ## Where to Record Gate Decisions
 
 - Session review file under `sessions/`
@@ -48,3 +57,4 @@ Exports are consumed by build repositories. Missing clarity or unresolved risk c
 - Run pre-export review checklist.
 - If `conditional-pass`, include owner and due date for each condition.
 - Create export only after recording gate outcome.
+- Run `/lab audit` to verify governance integrity after export.

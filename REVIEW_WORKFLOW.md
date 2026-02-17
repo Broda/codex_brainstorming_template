@@ -28,11 +28,21 @@ It prevents incomplete or low-confidence plans from being exported and passed do
 4. Export Review
 - Populate project plan packet template.
 - Review for internal consistency and traceability.
-- Record approval decision in session file.
+- Record review evidence using `templates/review_gate_template.md`.
 
 5. Finalize
 - Create immutable export in `exports/`.
 - Update `IDEA_CATALOG.md` status to `exported`.
+- Run `/lab audit` (`scripts/validate-governance.ps1`).
+
+## Review Gate Structure (Required)
+
+For `/lab review`, use `templates/review_gate_template.md` and include:
+
+- Gate result: `pass` | `conditional-pass` | `fail`
+- Unmet criteria
+- Owner + due date for each condition
+- Links to checklist evidence
 
 ## Ready-to-Finalize Checklist
 
@@ -51,5 +61,6 @@ It prevents incomplete or low-confidence plans from being exported and passed do
 ## Artifact Locations
 
 - Review evidence: `sessions/`
+- Review structure template: `templates/review_gate_template.md`
 - Final packet: `exports/`
 - Quality gate criteria: `QUALITY_BAR.md`
