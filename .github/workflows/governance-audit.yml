@@ -1,0 +1,26 @@
+﻿name: Governance Audit (Warn Only)
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run governance audit (warn-only)
+        shell: pwsh
+        run: |
+          Write-Host "Running governance audit in warn-only mode..."
+          powershell -ExecutionPolicy Bypass -File scripts/validate-governance.ps1
+          if ($LASTEXITCODE -ne 0) {
+            Write-Warning "Governance audit reported failures. Warn-only mode: this does not block merge."
+          } else {
+            Write-Host "Governance audit passed."
+          }
+          exit 0
