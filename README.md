@@ -22,6 +22,10 @@ Governance is explicit and file-based. Policies define quality, decision rigor, 
 - Security policy: `SECURITY_POLICY.md`
 - Quality bar: `QUALITY_BAR.md`
 - Standards (IDs + transitions): `STANDARDS.md`
+- Working agreements: `WORKING_AGREEMENTS.md`
+- Glossary: `GLOSSARY.md`
+- Metrics dashboard: `METRICS.md`
+- Template releases policy: `TEMPLATE_RELEASES.md`
 - Command contract: `COMMANDS.md`
 - File registry: `FILE_MAP.md`
 
@@ -36,7 +40,14 @@ Governance is explicit and file-based. Policies define quality, decision rigor, 
 - Idea catalog: `IDEA_CATALOG.md`
 - Idea state files: `ideas/_inbox.md`, `ideas/_active.md`, `ideas/_parked.md`, `ideas/_killed.md`
 - Onboarding quickstart: `QUICKSTART.md`
+- Bootstrap checklist: `BOOTSTRAP_CHECKLIST.md`
 - Worked examples: `examples/idea-example.md`, `examples/adr-example.md`, `examples/export-example.md`
+
+## Open-Source Contribution Surface
+
+- Warn-only CI audit: `.github/workflows/governance-audit.yml`
+- Issue templates: `.github/ISSUE_TEMPLATE/`
+- PR template: `.github/PULL_REQUEST_TEMPLATE.md`
 
 ## Baseline Rules
 

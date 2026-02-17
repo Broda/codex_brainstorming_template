@@ -20,7 +20,12 @@ Owner legend:
 | `SECURITY_POLICY.md` | Sensitivity and secure documentation guidance | idea-lab-maintainer | 2026-02-17 |
 | `QUALITY_BAR.md` | Export quality gates and acceptance criteria | idea-lab-maintainer | 2026-02-17 |
 | `STANDARDS.md` | ID patterns and lifecycle transition requirements | idea-lab-maintainer | 2026-02-17 |
+| `WORKING_AGREEMENTS.md` | Team operating agreements and cadence | idea-lab-maintainer | 2026-02-17 |
+| `GLOSSARY.md` | Governance vocabulary normalization | idea-lab-maintainer | 2026-02-17 |
+| `METRICS.md` | Planning quality and throughput metrics dashboard | idea-lab-maintainer | 2026-02-17 |
+| `TEMPLATE_RELEASES.md` | Template versioning and migration policy | idea-lab-maintainer | 2026-02-17 |
 | `QUICKSTART.md` | Happy-path onboarding workflow | idea-lab-maintainer | 2026-02-17 |
+| `BOOTSTRAP_CHECKLIST.md` | First-use initialization checklist | idea-lab-maintainer | 2026-02-17 |
 | `IDEA_CATALOG.md` | Central index of ideas and governance links | idea-lab-maintainer | 2026-02-17 |
 | `ideas/_inbox.md` | Inbox state for new ideas | idea-lab-maintainer | 2026-02-17 |
 | `ideas/_active.md` | Active ideas under evaluation | idea-lab-maintainer | 2026-02-17 |
@@ -39,6 +44,10 @@ Owner legend:
 | `docs/adr/ADR-0001-adopt-governance-structure-for-idea-lab.md` | Initial governance adoption ADR | idea-lab-maintainer | 2026-02-17 |
 | `docs/adr/ADR-0002-export-gate-adjustment.md` | Example follow-on ADR for governance walkthroughs | idea-lab-maintainer | 2026-02-17 |
 | `scripts/validate-governance.ps1` | Governance integrity checks for `/lab audit` | idea-lab-maintainer | 2026-02-17 |
+| `.github/workflows/governance-audit.yml` | Warn-only governance CI check | idea-lab-maintainer | 2026-02-17 |
+| `.github/ISSUE_TEMPLATE/idea-intake.md` | Idea intake issue template | idea-lab-maintainer | 2026-02-17 |
+| `.github/ISSUE_TEMPLATE/governance-change.md` | Governance change issue template | idea-lab-maintainer | 2026-02-17 |
+| `.github/PULL_REQUEST_TEMPLATE.md` | PR governance evidence checklist | idea-lab-maintainer | 2026-02-17 |
 | `examples/idea-example.md` | Example governed idea entry | idea-lab-maintainer | 2026-02-17 |
 | `examples/adr-example.md` | Example ADR entry | idea-lab-maintainer | 2026-02-17 |
 | `examples/export-example.md` | Example shortened export packet | idea-lab-maintainer | 2026-02-17 |
@@ -48,5 +57,3 @@ Owner legend:
 - Git internals under `.git/` are intentionally excluded from this managed registry.
 - Update this table whenever adding, renaming, or materially changing managed files.
 - `/lab audit` flags stale date coverage and missing governance artifacts as part of hygiene checks.
-
-

@@ -1,19 +1,22 @@
 ﻿# Quickstart
 
-End-to-end happy path for one idea using the balanced governance flow.
+New-repo runbook for this template repository.
 
-## Goal
+## Phase A: Initialize (30-45 min)
 
-Demonstrate: capture -> activate -> decide -> risk -> review -> export -> finalize.
+1. Create repository from template.
+2. Update `README.md` purpose line and ownership defaults.
+3. Complete `BOOTSTRAP_CHECKLIST.md`.
+4. Open `IDEA_CATALOG.md` and verify starter row conventions.
+5. Run audit:
 
-## Example IDs
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/validate-governance.ps1
+```
 
-- Idea ID: `idea-agentic-briefing-lab`
-- Decision ID: `decision-001`
-- Risk ID: `risk-001`
-- ADR: `ADR-0002-export-gate-adjustment.md`
+## Phase B: First Idea Lifecycle (Happy Path)
 
-## 1) Capture
+### 1) Capture
 
 Files touched:
 - `ideas/_inbox.md`
@@ -23,83 +26,92 @@ Action:
 - Add idea entry with `templates/idea_template.md`.
 - Add catalog row with status `inbox`.
 
-## 2) Activate
+### 2) Activate
 
 Files touched:
 - `ideas/_active.md`
-- `sessions/2026-02-17_session_activate-idea-agentic-briefing-lab.md`
+- `sessions/YYYY-MM-DD_session_activate-<idea>.md`
 - `IDEA_CATALOG.md`
 
 Action:
-- Record lifecycle transition block from `inbox` to `active`.
-- Create session file and link it in the catalog.
+- Record lifecycle transition block from `STANDARDS.md`.
+- Create activation session file and link it in catalog.
 
-## 3) Decide
+### 3) Decide
 
 Files touched:
-- `sessions/2026-02-17_session_activate-idea-agentic-briefing-lab.md`
-- `docs/adr/ADR-0002-export-gate-adjustment.md` (if L3)
+- `sessions/YYYY-MM-DD_session_<topic>.md`
+- `docs/adr/ADR-XXXX-<slug>.md` (if Level 3)
 - `IDEA_CATALOG.md`
 
 Action:
-- Use `templates/decision_template.md` for L1/L2.
-- For L3, create ADR from `docs/adr/template.md` and link it in catalog.
+- L1/L2: record session decision using `templates/decision_template.md`.
+- L3: create ADR from `docs/adr/template.md` and link it.
 
-## 4) Risk
+### 4) Risk
 
 Files touched:
-- `sessions/2026-02-17_session_risk-idea-agentic-briefing-lab.md`
+- `sessions/YYYY-MM-DD_session_risk-<idea>.md`
 - `IDEA_CATALOG.md`
 
 Action:
-- Add risk entry using `templates/risk_template.md`.
+- Add risk record using `templates/risk_template.md`.
 
-## 5) Review
+### 5) Review
 
 Files touched:
-- `sessions/2026-02-17_session_review-idea-agentic-briefing-lab.md`
+- `sessions/YYYY-MM-DD_session_review-<idea>.md`
 - `IDEA_CATALOG.md`
 
 Action:
 - Add review gate output using `templates/review_gate_template.md`.
-- Set gate outcome (`pass|conditional-pass|fail`) and owners for conditions.
+- Set `pass | conditional-pass | fail` with owner/due for conditions.
 
-## 6) Export
+### 6) Export
 
 Files touched:
-- `exports/2026-02-17_PROJECT_PLAN_PACKET_idea-agentic-briefing-lab.md`
+- `exports/YYYY-MM-DD_PROJECT_PLAN_PACKET_<idea-id>.md`
 - `IDEA_CATALOG.md`
 
 Action:
 - Create export with `templates/project_plan_packet_template.md`.
-- Include governance review and quality checklist references.
+- Include governance review and quality checklist evidence.
 
-## 7) Finalize
+### 7) Finalize
 
 Files touched:
-- `ideas/_active.md` and relevant state file
+- relevant `ideas/_*.md` state file(s)
 - `IDEA_CATALOG.md`
 
 Action:
-- Mark status `exported` and record transition block.
-- Confirm export path and final review date in catalog.
+- Mark status `exported`.
+- Record transition block and final review metadata.
 
-## 8) Audit
-
-Files touched:
-- none (read-only check)
+### 8) Audit Again
 
 Command:
+
 ```powershell
-./scripts/validate-governance.ps1
+powershell -ExecutionPolicy Bypass -File scripts/validate-governance.ps1
 ```
 
 Expected result:
 - No unresolved links, missing artifacts, or catalog/state mismatches.
+
+## Phase C: Ongoing Operating Rhythm
+
+- Weekly:
+  - review active ideas,
+  - check parked re-entry dates,
+  - review unresolved high risks.
+- Per governance-changing decision:
+  - add ADR,
+  - update affected docs and catalog links.
+- Per export:
+  - ensure gate evidence and ownership fields are complete.
 
 ## Onboarding Examples
 
 - `examples/idea-example.md`
 - `examples/adr-example.md`
 - `examples/export-example.md`
-
