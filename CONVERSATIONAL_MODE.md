@@ -29,7 +29,7 @@ Lightweight mode for chat-first brainstorming with milestone-based recording.
 | "risk: ..." | record risk | `sessions/*` |
 | "review this idea" | record review/gate | `sessions/*`, `IDEA_CATALOG.md` |
 | "finalize/export plan" | create export + mark exported | `exports/*`, state files, `IDEA_CATALOG.md` |
-| "run audit" | validate integrity | `scripts/validate-governance.ps1` |
+| "run audit" | validate integrity | `scripts/validate-governance` |
 
 ## Notes
 

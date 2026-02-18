@@ -14,5 +14,5 @@
 
 - [ ] Preserved non-destructive history
 - [ ] Updated `IDEA_CATALOG.md` when idea state changed
-- [ ] Ran `scripts/validate-governance.ps1`
+- [ ] Ran `scripts/validate-governance`
 - [ ] Updated docs if conversational contract changed

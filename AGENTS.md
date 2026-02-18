@@ -51,12 +51,12 @@ Avoid per-turn file churn for exploratory discussion.
 
 Run after major updates:
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/validate-governance.ps1
+```sh
+./scripts/validate-governance
 ```
 
 Manual sync helper (optional):
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/lab-sync.ps1 -Message "brainstorm: milestone update"
+```sh
+./scripts/lab-sync "brainstorm: milestone update"
 ```

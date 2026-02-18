@@ -9,8 +9,8 @@
 5. When done, say "finalize/export plan".
 6. Run audit:
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/validate-governance.ps1
+```sh
+./scripts/validate-governance
 ```
 
 ## Minimal Finalization Checklist

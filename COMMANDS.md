@@ -71,7 +71,7 @@ Backend contract for conversational operations in the Project Idea Lab.
 - Update `IDEA_CATALOG.md`.
 
 ### `/lab audit`
-- Run `scripts/validate-governance.ps1`.
+- Run `scripts/validate-governance`.
 
 ### `/lab commit [message]`
 - Commit staged changes manually.
@@ -82,7 +82,7 @@ Backend contract for conversational operations in the Project Idea Lab.
 - Requires clean working tree.
 
 ### `/lab sync [message]`
-- Manual commit+push wrapper using `scripts/lab-sync.ps1`.
+- Manual commit+push wrapper using `scripts/lab-sync`.
 - Keeps local commit if push fails.
 
 ## Minimum Required Artifacts per Finalized Idea

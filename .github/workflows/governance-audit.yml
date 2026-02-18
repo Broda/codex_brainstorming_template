@@ -6,7 +6,7 @@ on:
 
 jobs:
   audit:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
@@ -14,13 +14,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run governance audit (warn-only)
-        shell: pwsh
+        shell: bash
         run: |
-          Write-Host "Running governance audit in warn-only mode..."
-          powershell -ExecutionPolicy Bypass -File scripts/validate-governance.ps1
-          if ($LASTEXITCODE -ne 0) {
-            Write-Warning "Governance audit reported failures. Warn-only mode: this does not block merge."
-          } else {
-            Write-Host "Governance audit passed."
-          }
+          echo "Running governance audit in warn-only mode..."
+          if ! ./scripts/validate-governance; then
+            echo "::warning::Governance audit reported failures. Warn-only mode: this does not block merge."
+          else
+            echo "Governance audit passed."
+          fi
           exit 0

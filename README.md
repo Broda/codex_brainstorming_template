@@ -42,8 +42,8 @@ No slash command syntax is required in normal use.
 
 Run:
 
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts/validate-governance.ps1
+```sh
+./scripts/validate-governance
 ```
 
 This checks link integrity, idea-state consistency, export references, and core artifact presence.
