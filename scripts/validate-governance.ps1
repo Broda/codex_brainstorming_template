@@ -36,10 +36,13 @@ $coreArtifacts = @(
     'docs/adr/ADR-0001-adopt-governance-structure-for-idea-lab.md',
     'scripts/validate-governance',
     'scripts/lab-sync',
+    'scripts/handoff-init',
     'scripts/validate-governance.ps1',
     'scripts/lab-sync.ps1',
+    'scripts/handoff-init.ps1',
     'scripts/validate-governance.sh',
     'scripts/lab-sync.sh',
+    'scripts/handoff-init.sh',
     '.github/workflows/governance-audit.yml',
     '.github/PULL_REQUEST_TEMPLATE.md'
 )

@@ -6,7 +6,7 @@
 2. When an idea is worth keeping, say "capture this idea".
 3. When moving forward, say "make this active".
 4. Record decisions/risks only when useful.
-5. When done, say "finalize/export plan".
+5. When done, say "finalize/export plan", then choose whether to initialize a project from the exported plan.
 6. Run audit:
 
 ```sh

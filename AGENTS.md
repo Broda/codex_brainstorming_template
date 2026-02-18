@@ -31,6 +31,11 @@ Persist updates only when one of these occurs:
 
 Avoid per-turn file churn for exploratory discussion.
 
+Finalize behavior:
+- Always create the exported project plan packet first.
+- Then prompt whether to initialize the downstream project template.
+- If declined, stop after export/finalize output with no clone/init side effects.
+
 ## Required Artifacts for Finalization
 
 - Idea record in `ideas/_*.md` and `IDEA_CATALOG.md`

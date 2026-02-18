@@ -20,7 +20,8 @@ No slash command syntax is required in normal use.
 3. Move promising ideas to `ideas/_active.md` with a session file in `sessions/`.
 4. Record decisions/risks only when useful.
 5. Export a final packet in `exports/`.
-6. Finalize and run audit.
+6. Finalize and choose whether to initialize a project from the exported plan.
+7. Run audit.
 
 ## Core Docs
 
@@ -53,3 +54,11 @@ This checks link integrity, idea-state consistency, export references, and core 
 - Milestone updates auto-commit by default.
 - Auto-commits auto-push to `origin/<current-branch>`.
 - If remote push fails, local commits stay intact for retry from any location.
+
+## Optional Project Initialization Handoff
+
+- Run: `./scripts/handoff-init.sh --idea-id <idea-id>` (or `./scripts/handoff-init --idea-id <idea-id>`).
+- The script always creates `exports/YYYY-MM-DD_PROJECT_PLAN_PACKET_<idea-id>.md`.
+- It then asks whether to continue with template initialization.
+- If declined, flow ends at project plan creation.
+- If accepted, it clones `git@github.com:Broda/codex_template.git` and runs guided initialization.

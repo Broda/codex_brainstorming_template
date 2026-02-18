@@ -28,7 +28,7 @@ Lightweight mode for chat-first brainstorming with milestone-based recording.
 | "decision: ... because ..." | record decision | `sessions/*` and optionally `docs/adr/*` |
 | "risk: ..." | record risk | `sessions/*` |
 | "review this idea" | record review/gate | `sessions/*`, `IDEA_CATALOG.md` |
-| "finalize/export plan" | create export + mark exported | `exports/*`, state files, `IDEA_CATALOG.md` |
+| "finalize/export plan" | create export + mark exported, then optionally initialize template project | `exports/*`, state files, `IDEA_CATALOG.md`, cloned template repo |
 | "run audit" | validate integrity | `scripts/validate-governance` |
 
 ## Notes

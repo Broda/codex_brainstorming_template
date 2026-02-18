@@ -26,10 +26,13 @@ Lean file registry for the Project Idea Lab.
 | `docs/adr/ADR-0001-adopt-governance-structure-for-idea-lab.md` | Foundational ADR |
 | `scripts/validate-governance` | Cross-platform launcher for governance validation |
 | `scripts/lab-sync` | Cross-platform launcher for commit+push sync |
+| `scripts/handoff-init` | Cross-platform launcher for export + optional template initialization |
 | `scripts/validate-governance.ps1` | Lean integrity validator |
 | `scripts/lab-sync.ps1` | Manual commit+push helper with clean-tree push safety |
+| `scripts/handoff-init.ps1` | Windows handoff script for export + optional initialization |
 | `scripts/validate-governance.sh` | Native macOS/Linux governance validator |
 | `scripts/lab-sync.sh` | Native macOS/Linux commit+push helper |
+| `scripts/handoff-init.sh` | Native macOS/Linux handoff automation script |
 | `.github/workflows/governance-audit.yml` | Warn-only CI audit |
 | `.github/PULL_REQUEST_TEMPLATE.md` | PR checklist |
 | `.gitignore` | Local/derived file exclusions |

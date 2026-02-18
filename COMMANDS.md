@@ -25,7 +25,7 @@ Backend contract for conversational operations in the Project Idea Lab.
 | "decision: ... because ..." | `/lab decide <decision-slug>` |
 | "risk: ..." | `/lab risk <idea-id>` |
 | "review this idea" | `/lab review <idea-id>` |
-| "finalize/export plan" | `/lab export <idea-id>` + `/lab finalize <idea-id>` |
+| "finalize/export plan" | `/lab export <idea-id>` + `/lab finalize <idea-id>` + optional `/lab handoff-init <idea-id>` |
 | "park this" | `/lab park <idea-id>` |
 | "kill this" | `/lab kill <idea-id>` |
 | "run audit" | `/lab audit` |
@@ -61,6 +61,15 @@ Backend contract for conversational operations in the Project Idea Lab.
 ### `/lab finalize <idea-id>`
 - Mark idea status `exported`.
 - Ensure export path is present in `IDEA_CATALOG.md`.
+- Prompt: "Do you want to initialize a project from this plan now?"
+- If user says no, stop at export/finalize behavior.
+- If user says yes, run `/lab handoff-init <idea-id>`.
+
+### `/lab handoff-init <idea-id> [--dest <path>]`
+- Clone template from `git@github.com:Broda/codex_template.git` (with recovery prompts on failure/path conflicts).
+- Collect prefill answers from export + targeted follow-up prompts.
+- Initialize the cloned project from `project_init_templates/*` and validate generated governance files.
+- Persist handoff metadata under `exports/`.
 
 ### `/lab park <idea-id>`
 - Move/update idea in `ideas/_parked.md`.
