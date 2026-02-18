@@ -34,6 +34,7 @@ Persist updates only when one of these occurs:
 - New idea captured
 - State transition
 - Major decision or risk
+- Research note captured
 - Export/finalize action
 
 Avoid per-turn file churn for exploratory discussion.
@@ -42,6 +43,16 @@ Finalize behavior:
 - Always create the exported project plan packet first.
 - Then prompt whether to initialize the downstream project template.
 - If declined, stop after export/finalize output with no clone/init side effects.
+
+Research note capture behavior:
+- Support note-save intents such as:
+  - "save that info in notes"
+  - "save a note on <topic>"
+  - "save that research"
+- Resolve source context from recent relevant assistant research.
+- If multiple plausible contexts exist, ask one quick clarifier with top candidates.
+- If no plausible context exists, ask user to restate target topic/cue.
+- Persist notes to `notes/` and register in `NOTES_CATALOG.md`.
 
 ## Topic-Shift Continuity Nudges
 

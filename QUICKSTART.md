@@ -22,5 +22,6 @@
 ## Optional Add-ons
 
 - ADR for strategic decisions (`docs/adr/template.md`)
+- Research notes for gathered info (`notes/`, `NOTES_CATALOG.md`, `./scripts/lab-note`)
 - Risk tracking (`templates/risk_template.md`)
 - Review gate (`templates/review_gate_template.md`)

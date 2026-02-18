@@ -15,6 +15,7 @@ Backend contract for conversational operations in the Project Idea Lab.
 - Idea ID format: `idea-<kebab-case>`
 - Decision ID format: `decision-<nnn>`
 - Risk ID format: `risk-<nnn>`
+- Note ID format: `note-<nnnn>`
 - ADR ID format: `ADR-XXXX`
 - Dates: `YYYY-MM-DD`
 
@@ -27,6 +28,9 @@ Backend contract for conversational operations in the Project Idea Lab.
 | "decision: ... because ..." | `/lab decide <decision-slug>` |
 | "risk: ..." | `/lab risk <idea-id>` |
 | "save path note" | `/lab path-note <idea-id>` |
+| "save that info in notes" | `/lab note <topic-or-ref>` |
+| "save a note on <topic>" | `/lab note <topic-or-ref>` |
+| "save that research" | `/lab note <topic-or-ref>` |
 | "review this idea" | `/lab review <idea-id>` |
 | "finalize/export plan" | `/lab export <idea-id>` + `/lab finalize <idea-id>` + optional `/lab handoff-init <idea-id>` |
 | "park this" | `/lab park <idea-id>` |
@@ -61,6 +65,19 @@ Backend contract for conversational operations in the Project Idea Lab.
   - Thread title (short)
   - 1-3 summary bullets
   - Optional deferred/parked rationale
+
+### `/lab note <topic-or-ref>`
+- Resolve source context from recent relevant assistant research.
+- Matching heuristic:
+  - explicit topic reference > topic keyword overlap > most recent research block
+- If multiple plausible source contexts exist, ask one clarifier with top candidates.
+- If no candidate exists, ask user to restate target topic/cue.
+- Create note file in `notes/` using sequential ID naming:
+  - `notes/YYYY-MM-DD_note-<NNNN>-<kebab-topic>.md`
+- Append row to `NOTES_CATALOG.md`:
+  - `Note ID | Title | Date | Related Idea | Source Context | Path | Tags`
+- Treat note saves as milestone writes and persist immediately.
+- Update `FILE_MAP.md` when file inventory changes.
 
 ### `/lab review <idea-id>`
 - Record review notes and optional gate using `templates/review_gate_template.md`.

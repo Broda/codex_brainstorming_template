@@ -25,12 +25,15 @@ core_artifacts=(
   "QUICKSTART.md"
   "FILE_MAP.md"
   "IDEA_CATALOG.md"
+  "NOTES_CATALOG.md"
   "ideas/_inbox.md"
   "ideas/_active.md"
   "ideas/_parked.md"
   "ideas/_killed.md"
+  "notes/"
   "templates/idea_template.md"
   "templates/decision_template.md"
+  "templates/note_template.md"
   "templates/project_plan_packet_template.md"
   "templates/risk_template.md"
   "templates/review_gate_template.md"
@@ -38,12 +41,15 @@ core_artifacts=(
   "docs/adr/ADR-0001-adopt-governance-structure-for-idea-lab.md"
   "scripts/validate-governance.ps1"
   "scripts/lab-sync.ps1"
+  "scripts/lab-note.ps1"
   "scripts/handoff-init.ps1"
   "scripts/validate-governance.sh"
   "scripts/lab-sync.sh"
+  "scripts/lab-note.sh"
   "scripts/handoff-init.sh"
   "scripts/validate-governance"
   "scripts/lab-sync"
+  "scripts/lab-note"
   "scripts/handoff-init"
   ".github/workflows/governance-audit.yml"
   ".github/PULL_REQUEST_TEMPLATE.md"
@@ -113,6 +119,41 @@ else
       fi
     fi
   done < <(grep -E '^\|[[:space:]]*idea-[a-z0-9-]+' "$catalog_path" || true)
+fi
+
+notes_catalog_path="NOTES_CATALOG.md"
+if ! path_exists "$notes_catalog_path"; then
+  add_failure "Missing NOTES_CATALOG.md"
+else
+  declare -A seen_note_ids=()
+  while IFS= read -r row; do
+    IFS='|' read -r _ c1 c2 c3 c4 c5 c6 c7 _ <<< "$row"
+    note_id=$(echo "$c1" | xargs)
+    note_date=$(echo "$c3" | xargs)
+    note_path=$(echo "$c6" | xargs)
+
+    if [[ ! "$note_id" =~ ^note-[0-9]{4}$ ]]; then
+      add_failure "Invalid note id format in NOTES_CATALOG.md: $note_id"
+      continue
+    fi
+
+    if [[ -n "${seen_note_ids[$note_id]:-}" ]]; then
+      add_failure "Duplicate note id in NOTES_CATALOG.md: $note_id"
+    else
+      seen_note_ids[$note_id]=1
+    fi
+
+    if [[ ! "$note_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+      add_failure "Invalid note date format for '$note_id': $note_date"
+    fi
+
+    clean_note_path=$(echo "$note_path" | sed 's/^`//; s/`$//' | xargs)
+    if [[ "$clean_note_path" != notes/* ]]; then
+      add_failure "Note path for '$note_id' must be under notes/: $clean_note_path"
+    elif ! path_exists "$clean_note_path"; then
+      add_failure "Missing note file for '$note_id': $clean_note_path"
+    fi
+  done < <(grep -E '^\|[[:space:]]*note-[0-9]{4}[[:space:]]*\|' "$notes_catalog_path" || true)
 fi
 
 file_map_path="FILE_MAP.md"

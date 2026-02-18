@@ -36,8 +36,16 @@ No slash command syntax is required in normal use.
 
 - ADR template: `docs/adr/template.md`
 - Decision template: `templates/decision_template.md`
+- Research note template: `templates/note_template.md`
 - Risk template: `templates/risk_template.md`
 - Review gate template: `templates/review_gate_template.md`
+
+## Research Notes
+
+- Save gathered information into durable notes with:
+  - `./scripts/lab-note.sh --topic "<topic>" --source "<context>" --summary "<bullet>"`
+  - or `./scripts/lab-note --topic "<topic>" ...`
+- Notes are written to `notes/` and indexed in `NOTES_CATALOG.md`.
 
 ## Validation
 

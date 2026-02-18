@@ -11,14 +11,17 @@ Lean file registry for the Project Idea Lab.
 | `QUICKSTART.md` | Fast start workflow |
 | `FILE_MAP.md` | Registry of retained files |
 | `IDEA_CATALOG.md` | Central idea index |
+| `NOTES_CATALOG.md` | Central research note index |
 | `ideas/_inbox.md` | Captured ideas |
 | `ideas/_active.md` | Active ideas |
 | `ideas/_parked.md` | Parked ideas |
 | `ideas/_killed.md` | Killed ideas |
 | `sessions/` | Session records |
+| `notes/` | Saved research/context notes |
 | `exports/` | Final plan exports |
 | `templates/idea_template.md` | Idea capture template |
 | `templates/decision_template.md` | Decision template |
+| `templates/note_template.md` | Research note template |
 | `templates/project_plan_packet_template.md` | Final export template |
 | `templates/risk_template.md` | Optional risk template |
 | `templates/review_gate_template.md` | Optional review gate template |
@@ -26,12 +29,15 @@ Lean file registry for the Project Idea Lab.
 | `docs/adr/ADR-0001-adopt-governance-structure-for-idea-lab.md` | Foundational ADR |
 | `scripts/validate-governance` | Cross-platform launcher for governance validation |
 | `scripts/lab-sync` | Cross-platform launcher for commit+push sync |
+| `scripts/lab-note` | Cross-platform launcher for research note capture |
 | `scripts/handoff-init` | Cross-platform launcher for export + optional template initialization |
 | `scripts/validate-governance.ps1` | Lean integrity validator |
 | `scripts/lab-sync.ps1` | Manual commit+push helper with clean-tree push safety |
+| `scripts/lab-note.ps1` | Windows research note capture helper |
 | `scripts/handoff-init.ps1` | Windows handoff script for export + optional initialization |
 | `scripts/validate-governance.sh` | Native macOS/Linux governance validator |
 | `scripts/lab-sync.sh` | Native macOS/Linux commit+push helper |
+| `scripts/lab-note.sh` | Native macOS/Linux research note capture helper |
 | `scripts/handoff-init.sh` | Native macOS/Linux handoff automation script |
 | `.github/workflows/governance-audit.yml` | Warn-only CI audit |
 | `.github/PULL_REQUEST_TEMPLATE.md` | PR checklist |

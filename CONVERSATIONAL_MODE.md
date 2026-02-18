@@ -21,6 +21,7 @@ Lightweight mode for chat-first brainstorming with milestone-based recording.
 - new idea captured
 - state transition
 - major decision or risk
+- research note captured
 - export/finalize
 
 ## Intent Map
@@ -33,6 +34,9 @@ Lightweight mode for chat-first brainstorming with milestone-based recording.
 | "decision: ... because ..." | record decision | `sessions/*` and optionally `docs/adr/*` |
 | "risk: ..." | record risk | `sessions/*` |
 | "save path note" | append exploration note to current session file | `sessions/*` |
+| "save that info in notes" | create research note from prior gathered context | `notes/*`, `NOTES_CATALOG.md` |
+| "save a note on `<topic>`" | create research note scoped to topic | `notes/*`, `NOTES_CATALOG.md` |
+| "save that research" | create research note from prior gathered context | `notes/*`, `NOTES_CATALOG.md` |
 | "review this idea" | record review/gate | `sessions/*`, `IDEA_CATALOG.md` |
 | "finalize/export plan" | create export + mark exported, then optionally initialize template project | `exports/*`, state files, `IDEA_CATALOG.md`, cloned template repo |
 | "run audit" | validate integrity | `scripts/validate-governance` |
@@ -43,6 +47,7 @@ Lightweight mode for chat-first brainstorming with milestone-based recording.
 - Background recording/sync runs quietly by default to protect brainstorming flow.
 - If a likely topic shift is detected, prompt once (respecting 10-minute cooldown): "Before we switch, save the previous thread?"
 - Topic-shift quick actions: `capture idea`, `record decision`, `log risk`, `save path note`, `skip`.
+- Note recall rule: for "save that info" requests, resolve from recent relevant research; if ambiguous, ask one clarifier.
 - For small ideas, keep artifacts minimal: idea + session + export.
 - No extra push phrase is required; milestone commits are auto-pushed by default.
 - If push fails, local commits are preserved for manual retry without interrupting flow.

@@ -23,12 +23,15 @@ $coreArtifacts = @(
     'QUICKSTART.md',
     'FILE_MAP.md',
     'IDEA_CATALOG.md',
+    'NOTES_CATALOG.md',
     'ideas/_inbox.md',
     'ideas/_active.md',
     'ideas/_parked.md',
     'ideas/_killed.md',
+    'notes',
     'templates/idea_template.md',
     'templates/decision_template.md',
+    'templates/note_template.md',
     'templates/project_plan_packet_template.md',
     'templates/risk_template.md',
     'templates/review_gate_template.md',
@@ -39,10 +42,13 @@ $coreArtifacts = @(
     'scripts/handoff-init',
     'scripts/validate-governance.ps1',
     'scripts/lab-sync.ps1',
+    'scripts/lab-note.ps1',
     'scripts/handoff-init.ps1',
     'scripts/validate-governance.sh',
     'scripts/lab-sync.sh',
+    'scripts/lab-note.sh',
     'scripts/handoff-init.sh',
+    'scripts/lab-note',
     '.github/workflows/governance-audit.yml',
     '.github/PULL_REQUEST_TEMPLATE.md'
 )
@@ -113,6 +119,50 @@ if (-not (Test-PathSafe $catalogPath)) {
                 if (-not (Test-PathSafe $exportPath)) {
                     Add-Failure("Catalog export path missing for '$ideaId': $exportPath")
                 }
+            }
+        }
+    }
+}
+
+$notesCatalogPath = 'NOTES_CATALOG.md'
+if (-not (Test-PathSafe $notesCatalogPath)) {
+    Add-Failure('Missing NOTES_CATALOG.md')
+} else {
+    $notesCatalog = Get-Content -Raw -LiteralPath $notesCatalogPath
+    $rows = $notesCatalog -split "`n" | Where-Object { $_ -match '^\|\s*note-[0-9]{4}\s*\|' }
+    $seenNoteIds = New-Object System.Collections.Generic.HashSet[string]
+
+    foreach ($row in $rows) {
+        $cols = $row.Split('|') | ForEach-Object { $_.Trim() }
+        if ($cols.Count -lt 8) {
+            Add-Failure("Malformed note catalog row: $row")
+            continue
+        }
+
+        $noteId = $cols[1]
+        $noteDate = $cols[3]
+        $notePath = $cols[6]
+
+        if ($noteId -notmatch '^note-[0-9]{4}$') {
+            Add-Failure("Invalid note id format in NOTES_CATALOG.md: $noteId")
+            continue
+        }
+
+        if (-not $seenNoteIds.Add($noteId)) {
+            Add-Failure("Duplicate note id in NOTES_CATALOG.md: $noteId")
+        }
+
+        if ($noteDate -notmatch '^[0-9]{4}-[0-9]{2}-[0-9]{2}$') {
+            Add-Failure("Invalid note date format for '$noteId': $noteDate")
+        }
+
+        $cleanNotePath = $notePath.Trim('`', ' ')
+        if ($cleanNotePath -notmatch '^notes[\\/].+') {
+            Add-Failure("Note path for '$noteId' must be under notes/: $cleanNotePath")
+        } else {
+            $normalized = $cleanNotePath.Replace('/', '\')
+            if (-not (Test-PathSafe $normalized)) {
+                Add-Failure("Missing note file for '$noteId': $normalized")
             }
         }
     }
