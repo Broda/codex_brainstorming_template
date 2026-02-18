@@ -36,6 +36,36 @@ Finalize behavior:
 - Then prompt whether to initialize the downstream project template.
 - If declined, stop after export/finalize output with no clone/init side effects.
 
+## Topic-Shift Continuity Nudges
+
+To reduce idea loss during exploratory branching:
+
+- Maintain session-scoped nudge state:
+  - `last_milestone_ts`
+  - `last_nudge_ts`
+  - `current_thread_signature` (lightweight keyword/topic summary)
+- Use heuristic topic-shift detection (no ML requirement):
+  - Explicit shift phrases (e.g., "switching", "new topic", "another idea", "unrelated")
+  - Abrupt keyword/domain drift from recent turns
+  - Decision/risk intent markers (e.g., "we should", "let's do", "tradeoff", "risk")
+- Only auto-nudge when confidence is `medium` or `high`.
+- Cooldown: at most one auto-nudge every 10 minutes.
+- Nudges are advisory, not mandatory.
+
+When a nudge triggers, ask:
+- "Before we switch, save the previous thread?"
+- Quick actions:
+  - `capture idea`
+  - `record decision`
+  - `log risk`
+  - `save path note`
+  - `skip`
+
+Session boundary checkpoint:
+- On a new session start in the same repo, ask once:
+  - "Any key prior thread to persist before we continue?"
+- Offer the same quick actions.
+
 ## Required Artifacts for Finalization
 
 - Idea record in `ideas/_*.md` and `IDEA_CATALOG.md`

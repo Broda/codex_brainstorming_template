@@ -24,6 +24,7 @@ Backend contract for conversational operations in the Project Idea Lab.
 | "make this active" | `/lab activate <idea-id>` |
 | "decision: ... because ..." | `/lab decide <decision-slug>` |
 | "risk: ..." | `/lab risk <idea-id>` |
+| "save path note" | `/lab path-note <idea-id>` |
 | "review this idea" | `/lab review <idea-id>` |
 | "finalize/export plan" | `/lab export <idea-id>` + `/lab finalize <idea-id>` + optional `/lab handoff-init <idea-id>` |
 | "park this" | `/lab park <idea-id>` |
@@ -49,6 +50,15 @@ Backend contract for conversational operations in the Project Idea Lab.
 
 ### `/lab risk <idea-id>`
 - Record risk in session using `templates/risk_template.md`.
+
+### `/lab path-note <idea-id>`
+- Append note to the current session file under `## Exploration Path Notes`.
+- Create section if missing.
+- Entry format:
+  - Timestamp (`YYYY-MM-DD HH:mm`)
+  - Thread title (short)
+  - 1-3 summary bullets
+  - Optional deferred/parked rationale
 
 ### `/lab review <idea-id>`
 - Record review notes and optional gate using `templates/review_gate_template.md`.
@@ -93,6 +103,24 @@ Backend contract for conversational operations in the Project Idea Lab.
 ### `/lab sync [message]`
 - Manual commit+push wrapper using `scripts/lab-sync`.
 - Keeps local commit if push fails.
+
+## Topic-Shift Nudge Policy (Runtime Contract)
+
+- Runtime tracks:
+  - `last_milestone_ts`
+  - `last_nudge_ts`
+  - `current_thread_signature`
+- Topic-shift confidence is heuristic (`low|medium|high`) using:
+  - explicit shift phrases
+  - domain/keyword drift
+  - decision/risk markers
+- Nudge only on `medium/high` and when `now - last_nudge_ts >= 10 minutes`.
+- Nudge prompt:
+  - "Before we switch, save the previous thread?"
+  - Quick actions: `capture idea`, `record decision`, `log risk`, `save path note`, `skip`
+- New session continuity checkpoint:
+  - "Any key prior thread to persist before we continue?"
+  - Offer same quick actions.
 
 ## Minimum Required Artifacts per Finalized Idea
 
