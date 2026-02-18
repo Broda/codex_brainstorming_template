@@ -1,7 +1,9 @@
 param(
     [string]$Message = "brainstorm: milestone update",
     [string[]]$Files = @(),
-    [switch]$NoPush
+    [switch]$NoPush,
+    [switch]$Quiet,
+    [switch]$NoWarnPushFailure
 )
 
 Set-StrictMode -Version Latest
@@ -9,6 +11,7 @@ $ErrorActionPreference = 'Stop'
 
 function Write-Info([string]$msg) { Write-Host $msg }
 function Write-WarnLine([string]$msg) { Write-Warning $msg }
+function Write-InfoMaybe([string]$msg) { if (-not $Quiet) { Write-Info $msg } }
 
 if ($Files.Count -gt 0) {
     & git add -- $Files
@@ -18,7 +21,7 @@ if ($Files.Count -gt 0) {
 
 $staged = (& git diff --cached --name-only)
 if (-not $staged) {
-    Write-Info "No staged changes to commit."
+    Write-InfoMaybe "No staged changes to commit."
     exit 0
 }
 
@@ -29,10 +32,10 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 $commitSha = (& git rev-parse --short HEAD).Trim()
-Write-Info ("Committed: " + $commitSha)
+Write-InfoMaybe ("Committed: " + $commitSha)
 
 if ($NoPush) {
-    Write-Info "Push skipped due to -NoPush."
+    Write-InfoMaybe "Push skipped due to -NoPush."
     exit 0
 }
 
@@ -57,9 +60,13 @@ if ($dirty) {
 
 & git push origin $branch
 if ($LASTEXITCODE -ne 0) {
+    if ($NoWarnPushFailure) {
+        # Best-effort autosync mode: keep local commit and continue silently.
+        exit 0
+    }
     Write-WarnLine ("Push failed for origin/" + $branch + ". Commit " + $commitSha + " is local and safe.")
     Write-WarnLine ("Retry: git push origin " + $branch)
     exit 3
 }
 
-Write-Info ("Pushed: origin/" + $branch + " @ " + $commitSha)
+Write-InfoMaybe ("Pushed: origin/" + $branch + " @ " + $commitSha)

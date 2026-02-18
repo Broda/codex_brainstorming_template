@@ -7,6 +7,8 @@ Backend contract for conversational operations in the Project Idea Lab.
 - Primary UX: conversational intent (plain language).
 - `/lab` command syntax remains optional and supported.
 - Milestone writes implicitly run commit + push synchronization.
+- Default brainstorming runtime uses Focus Mode (quiet background ops).
+- Autosync push is best-effort; push failures are silent by default while local commits are retained.
 
 ## Conventions
 
@@ -103,6 +105,9 @@ Backend contract for conversational operations in the Project Idea Lab.
 ### `/lab sync [message]`
 - Manual commit+push wrapper using `scripts/lab-sync`.
 - Keeps local commit if push fails.
+- Supports `--quiet` to suppress routine success output.
+- Supports `--no-warn-push-failure` for silent best-effort push behavior.
+- Default autosync profile: `scripts/lab-sync --quiet --no-warn-push-failure`.
 
 ## Topic-Shift Nudge Policy (Runtime Contract)
 

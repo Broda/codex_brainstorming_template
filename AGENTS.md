@@ -11,6 +11,7 @@ Keep brainstorming natural while recording key milestones for future sessions an
 - Primary UX: freeform conversational brainstorming.
 - Persistence style: auto-journaling at milestones.
 - Do not force slash commands during normal chat.
+- Focus Mode: on by default.
 
 ## Git Sync Behavior
 
@@ -18,7 +19,13 @@ Keep brainstorming natural while recording key milestones for future sessions an
 - Auto-push after each auto-commit.
 - Push target: current branch to `origin/<current-branch>`.
 - Push safety: push only if working tree is clean after commit.
-- If push fails, keep local commit and report failure details.
+- Autosync runs in quiet mode by default (hide inconsequential status output).
+- Push failures are silent and non-blocking in default brainstorming flow.
+- If push fails, keep local commit for later manual push.
+
+Focus Mode visibility rules:
+- Show: direct user responses, required user questions/prompts, consequential failures.
+- Hide: routine recording/commit/push success chatter and other inconsequential background status.
 
 ## Milestone Capture Rule
 

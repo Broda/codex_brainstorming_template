@@ -53,7 +53,8 @@ This checks link integrity, idea-state consistency, export references, and core 
 
 - Milestone updates auto-commit by default.
 - Auto-commits auto-push to `origin/<current-branch>`.
-- If remote push fails, local commits stay intact for retry from any location.
+- Focus Mode is on by default: routine recording/sync chatter stays hidden during brainstorming.
+- If remote push fails, local commits stay intact for manual retry without interrupting flow.
 
 ## Optional Project Initialization Handoff
 

@@ -9,6 +9,9 @@ Lightweight mode for chat-first brainstorming with milestone-based recording.
 - Auto-commit: on
 - Auto-push: on
 - Push policy: clean tree only
+- Focus Mode: on (default)
+- Background sync visibility: hidden unless consequential
+- Push-failure warnings in default brainstorming flow: suppressed
 - Slash commands: optional
 - Topic-shift continuity nudges: on
 - Nudge cooldown: 10 minutes
@@ -37,8 +40,9 @@ Lightweight mode for chat-first brainstorming with milestone-based recording.
 ## Notes
 
 - Freeform conversation is valid; no write occurs until milestones happen.
+- Background recording/sync runs quietly by default to protect brainstorming flow.
 - If a likely topic shift is detected, prompt once (respecting 10-minute cooldown): "Before we switch, save the previous thread?"
 - Topic-shift quick actions: `capture idea`, `record decision`, `log risk`, `save path note`, `skip`.
 - For small ideas, keep artifacts minimal: idea + session + export.
 - No extra push phrase is required; milestone commits are auto-pushed by default.
-- If push fails, local commits are preserved and surfaced for manual retry.
+- If push fails, local commits are preserved for manual retry without interrupting flow.
