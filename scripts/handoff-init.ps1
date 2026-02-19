@@ -349,9 +349,18 @@ $readmePath = Join-Path $Dest 'README.md'
 $readme = Get-Content -Raw -LiteralPath $readmePath
 $readme = $readme.Replace('<Prototype / MVP / Beta>', 'MVP')
 $readme = $readme.Replace('<Stack-specific setup steps>', $setupSteps)
-$readme = $readme -replace 'Build:\s*\r?\n\s*\r?\n\s*<command>', "Build:`n`n    $buildCommand"
-$readme = $readme -replace 'Run:\s*\r?\n\s*\r?\n\s*<command>', "Run:`n`n    $runCommand"
-$readme = $readme -replace 'Test:\s*\r?\n\s*\r?\n\s*<command>', "Test:`n`n    $testCommand"
+$readme = [regex]::Replace($readme, 'Build:\s*\r?\n\s*\r?\n\s*<command>', [System.Text.RegularExpressions.MatchEvaluator]{
+    param($m)
+    "Build:`n`n    $buildCommand"
+})
+$readme = [regex]::Replace($readme, 'Run:\s*\r?\n\s*\r?\n\s*<command>', [System.Text.RegularExpressions.MatchEvaluator]{
+    param($m)
+    "Run:`n`n    $runCommand"
+})
+$readme = [regex]::Replace($readme, 'Test:\s*\r?\n\s*\r?\n\s*<command>', [System.Text.RegularExpressions.MatchEvaluator]{
+    param($m)
+    "Test:`n`n    $testCommand"
+})
 Set-Content -LiteralPath $readmePath -Value $readme
 
 $projectContextPath = Join-Path $Dest 'docs/PROJECT_CONTEXT.md'

@@ -163,16 +163,34 @@ copy_base() {
   cp "$src" "$dst"
 }
 
+replace_literal() {
+  local file="$1"
+  local from="$2"
+  local to="$3"
+  if [[ -z "$from" ]]; then
+    return 0
+  fi
+  FROM="$from" TO="$to" perl -0777 -i -pe '
+    BEGIN {
+      $from = $ENV{"FROM"} // q{};
+      $to = $ENV{"TO"} // q{};
+    }
+    s/\Q$from\E/$to/g;
+  ' "$file"
+}
+
+json_string() {
+  perl -MJSON::PP -e 'print encode_json($ARGV[0])' "$1"
+}
+
 apply_replacements() {
   local file="$1"
-  sed -i \
-    -e "s#<Project Name>#$project_name#g" \
-    -e "s#<Milestone Name>#$MILESTONE_NAME#g" \
-    -e "s#<Build command>#$build_command#g" \
-    -e "s#<Run command>#$run_command#g" \
-    -e "s#<Test command>#$test_command#g" \
-    -e "s#<Short Title>#Decision Title#g" \
-    "$file"
+  replace_literal "$file" "<Project Name>" "$project_name"
+  replace_literal "$file" "<Milestone Name>" "$MILESTONE_NAME"
+  replace_literal "$file" "<Build command>" "$build_command"
+  replace_literal "$file" "<Run command>" "$run_command"
+  replace_literal "$file" "<Test command>" "$test_command"
+  replace_literal "$file" "<Short Title>" "Decision Title"
 }
 
 resolve_destination() {
@@ -486,27 +504,27 @@ test_command=$(ask_non_empty "Test command" "")
 prefill_path="exports/${date_stamp}_HANDOFF_PREFILL_${idea_id}.json"
 cat > "$prefill_path" <<JSON
 {
-  "ideaId": "$idea_id",
-  "projectName": "$project_name",
-  "purpose": "${objective:-TBD}",
-  "projectType": "$project_type",
+  "ideaId": $(json_string "$idea_id"),
+  "projectName": $(json_string "$project_name"),
+  "purpose": $(json_string "${objective:-TBD}"),
+  "projectType": $(json_string "$project_type"),
   "techStack": {
-    "language": "$language",
-    "runtime": "$runtime",
-    "framework": "$framework",
-    "packageTool": "$package_tool"
+    "language": $(json_string "$language"),
+    "runtime": $(json_string "$runtime"),
+    "framework": $(json_string "$framework"),
+    "packageTool": $(json_string "$package_tool")
   },
-  "persistence": "$persistence",
-  "authentication": "$authentication",
-  "determinism": "$determinism",
-  "packaging": "$packaging",
-  "constraints": "$constraints",
+  "persistence": $(json_string "$persistence"),
+  "authentication": $(json_string "$authentication"),
+  "determinism": $(json_string "$determinism"),
+  "packaging": $(json_string "$packaging"),
+  "constraints": $(json_string "$constraints"),
   "commands": {
-    "build": "$build_command",
-    "run": "$run_command",
-    "test": "$test_command"
+    "build": $(json_string "$build_command"),
+    "run": $(json_string "$run_command"),
+    "test": $(json_string "$test_command")
   },
-  "destination": "$clone_dir"
+  "destination": $(json_string "$clone_dir")
 }
 JSON
 
@@ -556,7 +574,8 @@ if [[ "$packaging" != "None" ]]; then
 EOG
 fi
 
-setup_steps="Language: $language\nRuntime: $runtime\nFramework: $framework\nTooling: $package_tool"
+printf -v setup_steps 'Language: %s\nRuntime: %s\nFramework: %s\nTooling: %s' \
+  "$language" "$runtime" "$framework" "$package_tool"
 purpose_text=${objective:-"$project_name is initialized from brainstorming handoff."}
 
 for f in \
@@ -574,11 +593,9 @@ for f in \
   apply_replacements "$f"
 done
 
-sed -i \
-  -e "s#<Prototype / MVP / Beta>#MVP#g" \
-  -e "s#<Stack-specific setup steps>#$setup_steps#g" \
-  -e "s#<command>#$build_command#g" \
-  "$clone_dir/README.md"
+replace_literal "$clone_dir/README.md" "<Prototype / MVP / Beta>" "MVP"
+replace_literal "$clone_dir/README.md" "<Stack-specific setup steps>" "$setup_steps"
+replace_literal "$clone_dir/README.md" "<command>" "$build_command"
 
 # Replace command blocks in README for run/test separately.
 awk -v b="$build_command" -v r="$run_command" -v t="$test_command" '
@@ -587,21 +604,15 @@ awk -v b="$build_command" -v r="$run_command" -v t="$test_command" '
   {print}
 ' "$clone_dir/README.md" > "$clone_dir/README.md.tmp" && mv "$clone_dir/README.md.tmp" "$clone_dir/README.md"
 
-sed -i \
-  -e "s#<Describe what this project is and why it exists.>#$purpose_text#g" \
-  -e "s#<What comes next>#Deliver Milestone 0 vertical slice and validation evidence.#g" \
-  "$clone_dir/docs/PROJECT_CONTEXT.md"
+replace_literal "$clone_dir/docs/PROJECT_CONTEXT.md" "<Describe what this project is and why it exists.>" "$purpose_text"
+replace_literal "$clone_dir/docs/PROJECT_CONTEXT.md" "<What comes next>" "Deliver Milestone 0 vertical slice and validation evidence."
 
-sed -i \
-  -e "s#Milestone 0 – Foundation#$MILESTONE_NAME#g" \
-  -e "s#<commands run> + <results observed>#$build_command (success), $test_command (pass), $run_command (smoke verified)#g" \
-  "$clone_dir/docs/ROADMAP.md"
+replace_literal "$clone_dir/docs/ROADMAP.md" "Milestone 0 – Foundation" "$MILESTONE_NAME"
+replace_literal "$clone_dir/docs/ROADMAP.md" "<commands run> + <results observed>" "$build_command (success), $test_command (pass), $run_command (smoke verified)"
 
-sed -i \
-  -e "s#<build command>#$build_command#g" \
-  -e "s#<test command>#$test_command#g" \
-  -e "s#<run command>#$run_command#g" \
-  "$clone_dir/docs/RUNTIME_VERIFICATION_REPORT.md"
+replace_literal "$clone_dir/docs/RUNTIME_VERIFICATION_REPORT.md" "<build command>" "$build_command"
+replace_literal "$clone_dir/docs/RUNTIME_VERIFICATION_REPORT.md" "<test command>" "$test_command"
+replace_literal "$clone_dir/docs/RUNTIME_VERIFICATION_REPORT.md" "<run command>" "$run_command"
 
 # Changelog initialization line under Unreleased.
 awk '
