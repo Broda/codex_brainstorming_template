@@ -210,6 +210,30 @@ while ($true) {
     if ($choice -eq '4') { throw 'Initialization canceled before clone completion.' }
 }
 
+if ((& git -C $Dest remote) -contains 'origin') {
+    $oldOrigin = (& git -C $Dest remote get-url origin)
+    & git -C $Dest remote remove origin
+    if ($LASTEXITCODE -ne 0) { throw "Failed to remove inherited origin remote from $Dest." }
+    Write-Host "Detached template remote: removed origin ($oldOrigin)"
+}
+
+$configureOrigin = Ask-YesNo 'Configure a new private repository remote as origin now?' $true
+if ($configureOrigin) {
+    $newOrigin = Read-Trim 'Enter new private origin URL (git@... or https://...)'
+    if ($newOrigin) {
+        & git -C $Dest remote add origin $newOrigin
+        if ($LASTEXITCODE -ne 0) {
+            Write-Warning 'Failed to set new origin remote. Repository remains without origin.'
+        } else {
+            Write-Host "Configured origin: $newOrigin"
+        }
+    } else {
+        Write-Host 'No origin URL provided. Repository remains detached from any origin.'
+    }
+} else {
+    Write-Host "Skipped origin setup. Add one later with: git -C `"$Dest`" remote add origin <your-private-repo-url>"
+}
+
 Write-Host "Template available at: $Dest"
 
 $projectType = Choose-From 'Project type' @('CLI','Desktop','Web App','API','Library')

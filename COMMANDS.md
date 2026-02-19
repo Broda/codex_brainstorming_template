@@ -96,6 +96,7 @@ Backend contract for conversational operations in the Project Idea Lab.
 
 ### `/lab handoff-init <idea-id> [--dest <path>]`
 - Clone template from `git@github.com:Broda/codex_template.git` (with recovery prompts on failure/path conflicts).
+- Remove inherited template `origin` remote and optionally configure a new private `origin`.
 - Collect prefill answers from export + targeted follow-up prompts.
 - Initialize the cloned project from `project_init_templates/*` and validate generated governance files.
 - Persist handoff metadata under `exports/`.

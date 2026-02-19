@@ -70,4 +70,5 @@ This checks link integrity, idea-state consistency, export references, and core 
 - The script always creates `exports/YYYY-MM-DD_PROJECT_PLAN_PACKET_<idea-id>.md`.
 - It then asks whether to continue with template initialization.
 - If declined, flow ends at project plan creation.
-- If accepted, it clones `git@github.com:Broda/codex_template.git` and runs guided initialization.
+- If accepted, it clones `git@github.com:Broda/codex_template.git`, removes inherited `origin`, and prompts you to set a new private `origin`.
+- It then runs guided initialization.

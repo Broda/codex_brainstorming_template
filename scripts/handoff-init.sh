@@ -267,6 +267,48 @@ clone_with_recovery() {
   done
 }
 
+detach_template_origin() {
+  local repo="$1"
+  if ! git -C "$repo" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    return 0
+  fi
+
+  if git -C "$repo" remote | grep -Fxq "origin"; then
+    local old_origin
+    old_origin=$(git -C "$repo" remote get-url origin 2>/dev/null || echo "unknown")
+    if git -C "$repo" remote remove origin; then
+      echo "Detached template remote: removed origin ($old_origin)"
+    else
+      echo "Failed to remove inherited origin remote." >&2
+      return 1
+    fi
+  fi
+}
+
+configure_private_origin() {
+  local repo="$1"
+  if ! prompt_yes_no "Configure a new private repository remote as origin now?" 1; then
+    echo "Skipped origin setup. Add one later with: git -C \"$repo\" remote add origin <your-private-repo-url>"
+    return 0
+  fi
+
+  local new_origin
+  read -r -p "Enter new private origin URL (git@... or https://...): " new_origin || true
+  new_origin=$(trim "$new_origin")
+  if [[ -z "$new_origin" ]]; then
+    echo "No origin URL provided. Repository remains detached from any origin."
+    return 0
+  fi
+
+  if git -C "$repo" remote add origin "$new_origin"; then
+    echo "Configured origin: $new_origin"
+    return 0
+  fi
+
+  echo "Failed to set new origin remote. Repository remains without origin." >&2
+  return 1
+}
+
 validate_generated() {
   local root="$1"
   local missing=0
@@ -417,6 +459,11 @@ if ! clone_with_recovery "$resolved_dest"; then
   echo "Initialization canceled before clone completion." >&2
   exit 1
 fi
+
+if ! detach_template_origin "$clone_dir"; then
+  exit 1
+fi
+configure_private_origin "$clone_dir" || true
 
 echo "Template available at: $clone_dir"
 
